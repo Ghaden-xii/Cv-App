@@ -9,12 +9,14 @@ export default function CvForm() {
         name: '',
         email: '',
         phone: '',
+        show: false,
     });
     
     const [ educationInf, setEducationInf ] = useState({
         school: '',
         title: '',
         date: '',
+        show: false,
     });
 
     const [ practicalInf, setPracticalInf ] = useState({
@@ -23,6 +25,7 @@ export default function CvForm() {
         duties: '',
         from: '',
         to: '',
+        show: false,
     });
 
     const handleInput = ( e ) => {
@@ -46,16 +49,23 @@ export default function CvForm() {
             <form action="" method="">
               <CvSection title='General' 
                 data={generalInf} 
-                handleInput={handleInput} />
+                handleInput={handleInput}
+                handleShow={setGeneralInf} />
 
               <CvSection title='Education' 
                 data={educationInf} 
-                handleInput={handleInput} />
+                handleInput={handleInput}
+                handleShow={setEducationInf} />
 
               <CvSection title='Practical' 
               data={practicalInf} 
-              handleInput={handleInput} />
+              handleInput={handleInput}
+              handleShow={setGeneralInf} />
             </form>
+            
+            <Preview title='General' respData={generalInf} />
+            <Preview title='Education' respData={educationInf} />
+            <Preview title='Practical' respData={practicalInf} />
         </>
     )
 }

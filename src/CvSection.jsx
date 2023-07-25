@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import Preview from "./Preview";
 
 export default function CvSection({ 
-      title,
-      data,
+      title='',
+      data={},
       handleInput,
-      isShown, 
-      handleShow 
+      handleShow,
     }) {
 
     const labels = Object.keys(data);
     const inputValue = Object.values(data);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
 
-        if (!isShown) {
-            handleShow(true);
+        if (!data.show) {
+            handleShow((prevState) => ({...prevState, show: true}));
         } else {
-            handleShow(false);
+            handleShow((prevState) => ({...prevState, show: false}));
         }
 
+        e.preventDefault();
     }
 
     return(
@@ -28,6 +28,11 @@ export default function CvSection({
           <h1 className="title">{title}</h1>
           {labels.map(( label, index ) => {
             
+            // stop map from rendering input for show 
+            if (label === 'show') {
+                return
+            }
+
             return(
                 <div key={index}>
                 <label htmlFor={label}>
@@ -45,7 +50,7 @@ export default function CvSection({
           <button 
             type="" 
             onClick={handleSubmit}>
-                Submit</button>
+                Preview</button>
         </>
     )
 }
