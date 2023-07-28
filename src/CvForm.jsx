@@ -154,7 +154,7 @@ export default function CvForm() {
                 handleInput={handleInput}
                 handleShow={setGeneralInf} />
             </form>
-        
+            <span>{generalInf.name}</span>
         </>
     )
 }
