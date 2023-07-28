@@ -1,56 +1,33 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import Preview from "./Preview";
 
-export default function CvSection({ 
-      title='',
-      data={},
-      handleInput,
-      handleShow,
-    }) {
+export default function CvSection( props ) {
 
-    const labels = Object.keys(data);
-    const inputValue = Object.values(data);
-
-    const handleSubmit = (e) => {
-
-        if (!data.show) {
-            handleShow((prevState) => ({...prevState, show: true}));
-        } else {
-            handleShow((prevState) => ({...prevState, show: false}));
-        }
-
-        e.preventDefault();
-    }
+    const {fields, values} = props;
 
     return(
         <>
         
-          <h1 className="title">{title}</h1>
-          {labels.map(( label, index ) => {
-            
-            // stop map from rendering input for show 
-            if (label === 'show') {
-                return
-            }
+        <h1 className="title">{props.title}</h1>
+        {
+            fields.map(( data, index ) => {
+                
+                return (
+                
+                    <label key={index} htmlFor={data.name}>{data.label}
+                        <input id={data.id} 
+                        name={data.name}
+                        type={data.type} 
+                        placeholder={data.placeholder}
+                        value={values[data.name]}
+                        onChange={props.handleInput}/>
+                    </label>
+                )
+            })
+        }
+        <button type="" onClick={props.handleShow}>Preview</button>
 
-            return(
-                <div key={index}>
-                <label htmlFor={label}>
-                    {label}:
-                    <input 
-                        id={label} 
-                        onChange={handleInput} 
-                        className="data"
-                        value={inputValue[index]}>
-                    </input>
-                </label>
-                </div>
-            )
-          })}
-          <button 
-            type="" 
-            onClick={handleSubmit}>
-                Preview</button>
         </>
     )
 }
