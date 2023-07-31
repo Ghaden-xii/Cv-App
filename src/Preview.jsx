@@ -1,34 +1,34 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { useState } from "react";
 
-export default function Preview({ title='',
-        respData={},
-    }) {
+export default function Preview( props ) {
+
+    const {inputsObj, section} = props;
     
-
-    const newRespData = {...respData}
-    const [formValues, setFormValues] = useState({});
-
-    const labels = Object.keys(respData);
-    const inputs = Object.values(respData);
+    const  labels = inputsObj.map( (label) => {
+        
+        try {
+            const input = document.getElementById(label.id);
+            
+            if (input === null) return;
+            
+            return(
+                <div className="preview-label" key={`preview-${label.id}`}>
+                    <span>{label.label}
+                        <p>{input.value}</p>
+                    </span>
+                </div>
+                )
+        } catch (error) {
+            // avoid crash on first render
+            console.error("Error occurred while accessing input element, input is null:", error);
+        }
+    });
 
     return (
-        <div className="preview-div" 
-             style={{display: respData.show === false ?
-             'none' : 'block'}}>
-            
-            {labels.map( (label, index) => {
-
-                if (label === 'show') return // prevent [show] from rendering 
-
-                return(
-                    <div key={label}>
-                        <span> {label}
-                            <p>{inputs[index]}</p>
-                        </span>
-                    </div>
-                )
-            })}
+        <div className="preview-section"
+        style={{display: section.show ? 'block': 'none'}}>
+            {labels}
         </div>
     )
 

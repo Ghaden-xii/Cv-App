@@ -130,12 +130,13 @@ export default function CvForm() {
         if ( 6 < id && id <= 11) {
             setPracticalInf((prevState) => ({ ...prevState, [name]: value}));
         }
-        console.log(generalInf,educationInf,practicalInf);
+        
     }
 
+
     return(
-        <>
-            <form >
+        <div className="app">
+            <form className="input-form">
               <CvSection title='General' 
                 fields={inputs[0]}
                 values={generalInf} 
@@ -154,7 +155,12 @@ export default function CvForm() {
                 handleInput={handleInput}
                 handleShow={setGeneralInf} />
             </form>
-            <span>{generalInf.name}</span>
-        </>
+            
+            <div className="form-preview">
+                <Preview section={generalInf} inputsObj={inputs[0]} />
+                <Preview section={educationInf} inputsObj={inputs[1]} />
+                <Preview section={practicalInf} inputsObj={inputs[2]} />
+            </div>
+        </div>
     )
 }
