@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import '../styles/App.css'
 import CvForm from './CvForm'
 
 function App() {
