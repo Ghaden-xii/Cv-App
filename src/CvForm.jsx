@@ -10,6 +10,7 @@ export default function CvForm() {
         mail: "",
         phone: "",
         show: false,
+        clicked: 0,
     });
     
     const [ educationInf, setEducationInf ] = useState({
@@ -17,6 +18,7 @@ export default function CvForm() {
         title: "",
         date: undefined,
         show: false,
+        clicked: 0,
     });
 
     const [ practicalInf, setPracticalInf ] = useState({
@@ -26,6 +28,7 @@ export default function CvForm() {
         from: undefined,
         to: undefined,
         show: false,
+        clicked: 0,
     });
 
     const inputs = [
@@ -114,6 +117,49 @@ export default function CvForm() {
             ],
         ]
 
+    const previewEvent = (e) => {
+        
+        e.preventDefault();
+
+        const {className} = e.target;
+        
+        console.log(generalInf.clicked, generalInf.show);
+
+        if ( className.includes('General') ) {
+
+            setGeneralInf( (prevState) => ({
+                ...prevState,
+                clicked: prevState.clicked + 1}));
+
+            generalInf.show ? 
+                setGeneralInf((prevState) => ({ ...prevState, show: false})):
+                setGeneralInf((prevState) => ({ ...prevState, show: true}));
+            
+        }
+        
+        if ( className.includes('Education') ) {
+            
+            setEducationInf( (prevState) => ({
+                ...prevState,
+                clicked: prevState.clicked + 1}));
+            
+            educationInf.show ?
+                setEducationInf((prevState) => ({ ...prevState, show: false})):
+                setEducationInf((prevState) => ({ ...prevState, show: true}));
+        }
+        
+        if ( className.includes('Practical') ) {
+
+            setPracticalInf( (prevState) => ({
+                ...prevState,
+                clicked: prevState.clicked + 1}));
+
+            practicalInf.show ?
+                setPracticalInf((prevState) => ({ ...prevState, show: false})):
+                setPracticalInf((prevState) => ({ ...prevState, show: true}));
+        }
+    }
+
     const handleInput = ( e ) => {
         console.log(e.target);
         
@@ -133,7 +179,6 @@ export default function CvForm() {
         
     }
 
-
     return(
         <div className="app">
             <form className="input-form">
@@ -141,25 +186,37 @@ export default function CvForm() {
                 fields={inputs[0]}
                 values={generalInf} 
                 handleInput={handleInput}
-                handleShow={setGeneralInf} />
+                handleShow={previewEvent} />
 
               <CvSection title='Education' 
                 fields={inputs[1]}
                 values={educationInf} 
                 handleInput={handleInput}
-                handleShow={setEducationInf} />
+                handleShow={previewEvent} />
 
               <CvSection title='Practical' 
                 fields={inputs[2]} 
                 values={practicalInf}
                 handleInput={handleInput}
-                handleShow={setGeneralInf} />
+                handleShow={previewEvent} />
             </form>
             
             <div className="form-preview">
-                <Preview section={generalInf} inputsObj={inputs[0]} />
-                <Preview section={educationInf} inputsObj={inputs[1]} />
-                <Preview section={practicalInf} inputsObj={inputs[2]} />
+                {
+                    generalInf.show ? 
+                    <Preview section={{...generalInf}} inputsObj={inputs[0]} /> :
+                    null
+                }
+                {
+                    educationInf.show ? 
+                    <Preview section={{...educationInf}} inputsObj={inputs[1]} /> :
+                    null
+                }
+                {
+                    practicalInf.show ? 
+                    <Preview section={{...practicalInf}} inputsObj={inputs[2]} /> :
+                    null
+                }
             </div>
         </div>
     )

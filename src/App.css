@@ -51,9 +51,10 @@ form {
   align-items: center;
   gap: 8px;
   padding: 15px 20px;
+  border-radius: 12px;
   
 
-  background-color: #FFF3C4;
+  background: #FFF3C4;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -83,6 +84,24 @@ form {
   width: 100px;
 }
 
-.preview-div {
-  background-color: #888;
+.form-preview {
+  padding: 5em;
+  border: 2px solid black;
+  border-radius: 12px;
+
+  background: linear-gradient( to bottom right, #3300ffa4, #62008B, #004cff8c);
+}
+
+.preview-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  width: max-content;
+
+  background: linear-gradient( to bottom left, #950077,#1E0095 );
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
 }

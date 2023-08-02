@@ -6,16 +6,6 @@ export default function CvSection( props ) {
 
     const {fields, values, handleInput, handleShow} = props;
 
-    const previewEvent = (e) => {
-        e.preventDefault();
-
-        if (!values.show) {
-            handleShow( ( prevState ) => ({ ...prevState, show: true }) )
-        } else {
-            handleShow( ( prevState ) => ({ ...prevState, show: false }) )
-        }
-    }
-
     return(
         <>
         
@@ -37,7 +27,7 @@ export default function CvSection( props ) {
                 )
             })
         }
-        <button className={`${props.title} preview btn`} onClick={previewEvent}>Preview</button>
+        <button className={`${props.title} preview btn`} onClick={handleShow}>Preview</button>
         </>
     )
 }
