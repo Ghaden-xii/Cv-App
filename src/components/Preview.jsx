@@ -2,14 +2,29 @@
 import React from "react";
 import { useState } from "react";
 
-export default function Preview( props ) {
+export default function Preview({ title, inputsObj, section, setSection }) {
 
-    const {inputsObj, section} = props;
     const [previewData, setPreviewData] = useState(section);
+
+    const handleEdit = () => {
+        
+        if ( JSON.stringify(section) === JSON.stringify(previewData) ) {
+            setSection( (prevState) => ({
+                ...prevState,
+                show: false,
+            }))
+            return
+        }
+
+        setSection({...previewData});
+    }
 
     return (
         <div className="preview-section"
         style={{display: section.show ? 'block': 'none'}}>
+            
+            <h1 className="title">{title}</h1>
+
             {inputsObj.map( ( item ) => {
         
             try {
@@ -29,6 +44,7 @@ export default function Preview( props ) {
                 return null
                 }
             })}
+            <button className={`edit-${title}`} onClick={handleEdit} >Edit</button>
         </div>
     )
 

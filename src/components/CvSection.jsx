@@ -2,14 +2,12 @@
 import React, { useState } from "react";
 import Preview from "./Preview";
 
-export default function CvSection( props ) {
-
-    const {fields, values, handleInput, handleShow} = props;
+export default function CvSection({ title, fields, values, handleInput, handleShow }) {
 
     return(
         <>
         
-        <h1 className="title">{props.title}</h1>
+        <h1 className="title">{title}</h1>
         {
             fields.map(( data ) => {
                 
@@ -22,12 +20,13 @@ export default function CvSection( props ) {
                         type={data.type} 
                         placeholder={data.placeholder}
                         value={values[data.name]}
-                        onChange={handleInput}/>
+                        onChange={handleInput}
+                        disabled={values.show} />
                     </label>
                 )
             })
         }
-        <button className={`${props.title} preview btn`} onClick={handleShow}>Preview</button>
+        <button className={`${title} preview btn`} onClick={handleShow}>Preview</button>
         </>
     )
 }
